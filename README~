@@ -1,0 +1,27 @@
+# StiFactory
+# 
+# StiFactory converts the #new method of an ActiveRecord class into a subclass-aware factory method.
+#    The factory returns a new instance of the superclass or subclass based on the presence of the
+#    inheritance_column in the attribute list when #new is called.  If the value of the
+#    inheritance_column attribute is a valid subclass of the superclass then a new instance of the
+#    subclass will be returned, otherwise a new instance of the superclass will be returned.
+#
+# Example:
+#    class Vehicle < ActiveRecord::Base
+#      self.inheritance_column = 'vehicle_type'
+#      has_sti_factory
+#    end
+#
+#    class Car < Vehicle; end
+#    class Truck < Vehicle; end
+#    class MonsterTruck < Truck; end
+#
+#    Vehicle.new
+#    #<Vehicle id: nil, vehicle_type: nil, ...>
+#
+#    Vehicle.new :vehicle_type => 'Truck'
+#    #<Truck id: nil, vehicle_type: 'Truck', ...>
+#
+#    Vehicle.new :vehicle_type => 'MonsterTruck'
+#    #<MonsterTruck id: nil, vehicle_type: 'MonsterTruck', ...>
+
