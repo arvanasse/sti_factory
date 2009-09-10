@@ -8,7 +8,7 @@ module Koinonia
       def has_sti_factory
         extend Koinonia::StiFactory::StiClassMethods
         class << self
-          alias_method_chain :new, :factory unless method_defined?(:new_without_factor)
+          alias_method_chain :new, :factory unless method_defined?(:new_without_factory)
         end
       end
     end
@@ -19,12 +19,12 @@ module Koinonia
       end
 
       def new_with_factory(*args)
-        options = args.last.is_a?(Hash) ? args.pop : {}
+        options = args.last.is_a?(Hash) ? args.last : {}
         
         klass_name = options.delete(self.inheritance_column.to_sym) || self.name
         klass = self.subclass_names.include?(klass_name) ? klass_name.constantize : self
         
-        klass.new_without_factory(*args.push(options))
+        klass.new_without_factory(*args)
       end
     end
   end
