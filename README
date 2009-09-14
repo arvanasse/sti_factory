@@ -29,4 +29,31 @@
 #
 #    Vehicle.new :vehicle_type => 'MonsterTruck'
 #    #<MonsterTruck id: nil, vehicle_type: 'MonsterTruck', ...>
+#
+############################################################################
+
+
+Koinonia::StiFactory
+- should provide an array of subclass names
+- should include the base class name in the list of subclass names
+
+Koinonia::StiFactory with the default inheritance column when instantiating a new object
+- should return the subclass named in the type attribute if it is a valid subclass
+- should return the specified class if no type attribute is supplied
+- should return the specified class if the supplied type attribute is a valid subclass of the base class
+
+Koinonia::StiFactory with the default inheritance column when creating a new object
+- should persist an instance of the subclass named in the type attribute
+- should persist an instance of the specified class if no type attribute is supplied
+- should persist the specified class if the value supplied in the type attribute is not a valid subclass of the base class
+
+Koinonia::StiFactory with a non-standard inheritance column when instantiating a new object
+- should return the subclass named in the type attribute if it is a valid subclass
+- should return the specified class if no type attribute is supplied
+- should return the specified class if the supplied type attribute is a valid subclass of the base class
+
+Koinonia::StiFactory with a non-standard inheritance column when creating a new object
+- should persist an instance of the subclass named in the type attribute
+- should persist an instance of the specified class if no type attribute is supplied
+- should persist the specified class if the value supplied in the type attribute is not a valid subclass of the base class
 
