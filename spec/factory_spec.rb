@@ -10,7 +10,7 @@ class MonsterTruck < Vehicle
 end
 
 describe "an STI class with a factory method", :shared=>true do
-  describe "when instantiating a new object" do
+  context "when instantiating a new object" do
     it "should return the subclass named in the type attribute if it is a valid subclass" do
       %w{Car Truck MonsterTruck}.each do |class_name|
         target_class = class_name.constantize
