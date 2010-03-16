@@ -33,6 +33,22 @@ describe "an STI class with a factory method", :shared=>true do
     end
   end
 
+  context "when instantiating an new instance using a string key for the inheritance column" do
+    it "should return the subclass named in the type attribute if it is a valid subclass" do
+      %w{Car Truck MonsterTruck}.each do |class_name|
+        target_class = class_name.constantize
+        Vehicle.new( inheritance_column.to_s => class_name).should be_a_kind_of( target_class )
+      end
+    end
+
+    it "should return the specified class if the supplied type attribute is a valid subclass of the base class" do
+      %w{Vehicle Car Truck MonsterTruck}.each do |class_name|
+        target_class = class_name.constantize
+        target_class.new( inheritance_column.to_s => 'Book' ).should be_a_kind_of( target_class )
+      end
+    end
+  end
+
   describe "when creating a new object" do
     it "should persist an instance of the subclass named in the type attribute" do
       %w{Car Truck MonsterTruck}.each do |class_name|
