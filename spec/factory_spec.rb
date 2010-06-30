@@ -104,4 +104,39 @@ describe Koinonia::StiFactory do
 
     it_should_behave_like "an STI class with a factory method"
   end
+
+  context 'instantiated through an association' do
+    before :all do
+      Vehicle.class_eval "self.inheritance_column = 'type'"
+      @manufacturer = Manufacturer.create :name => 'Ford'
+    end
+
+    context 'using assoc.build' do
+      before :each do
+        @vehicle = @manufacturer.vehicles.build(:type => 'Car', :name => 'Test')
+      end
+
+      it "should instantiate the correct class calling assoc.build" do
+        @vehicle.should be_a_kind_of(Car)
+      end
+
+      it "should populate the assoc_id" do
+        @vehicle.manufacturer_id.should eql(@manufacturer.id)
+      end
+    end
+
+    context 'using assoc.create' do
+      before :each do
+        @vehicle = @manufacturer.vehicles.create(:type => 'Car', :name => 'Test')
+      end
+
+      it "should instantiate the correct class calling assoc.build" do
+        @vehicle.should be_a_kind_of(Car)
+      end
+
+      it "should populate the assoc_id" do
+        @vehicle.manufacturer_id.should eql(@manufacturer.id)
+      end
+    end
+  end
 end

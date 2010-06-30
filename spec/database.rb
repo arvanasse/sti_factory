@@ -13,7 +13,12 @@ ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
 
+  create_table :manufacturers, :force => true do |table|
+    table.string :name
+  end
+
   create_table :vehicles, :force => true do |table|
+    table.references :manufacturer
     table.string :type, :name
   end
 
@@ -23,8 +28,14 @@ ActiveRecord::Schema.define do
 
 end
 
+class Manufacturer < ActiveRecord::Base
+  has_many :vehicles
+end
+
 class Vehicle < ActiveRecord::Base
   has_sti_factory
+
+  belongs_to :manufacturer
 end
 
 class Book < ActiveRecord::Base
