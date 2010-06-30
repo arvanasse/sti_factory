@@ -1,0 +1,3 @@
+class Jeep < Vehicle
+  
+end

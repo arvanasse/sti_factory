@@ -139,4 +139,11 @@ describe Koinonia::StiFactory do
       end
     end
   end
+
+  it "should force a load of an unreferenced subclass" do
+    lambda{
+      Vehicle.class_eval "self.inheritance_column = 'type'"
+      Vehicle.new(:type => 'Jeep', :name => 'Unreferenced').should be_a_kind_of(Jeep)
+    }.should_not raise_error
+  end
 end
