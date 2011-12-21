@@ -92,18 +92,18 @@ describe Koinonia::StiFactory do
   end
 
   describe 'with the default inheritance column' do
-    it_should_behave_like "an STI class with a factory method"
+    #it_should_behave_like "an STI class with a factory method"
   end
 
-  describe 'with a non-standard inheritance column' do
-    ActiveRecord::Schema.define do
-      rename_column :vehicles, :type, :vehicle_type
-    end
-
-    Vehicle.class_eval "self.inheritance_column = 'vehicle_type'"
-
-    it_should_behave_like "an STI class with a factory method"
-  end
+  # describe 'with a non-standard inheritance column' do
+    # ActiveRecord::Schema.define do
+      # rename_column :vehicles, :type, :vehicle_type
+    # end
+# 
+    # Vehicle.class_eval "self.set_inheritance_column 'vehicle_type'"
+# 
+    # #it_should_behave_like "an STI class with a factory method"
+  # end
 
   context 'instantiated through an association' do
     before :all do
@@ -117,11 +117,12 @@ describe Koinonia::StiFactory do
       end
 
       it "should instantiate the correct class calling assoc.build" do
-        @vehicle.should be_a_kind_of(Car)
+        puts @vehicle.class
+        @vehicle.class.should be_a(Car)
       end
 
       it "should populate the assoc_id" do
-        @vehicle.manufacturer_id.should eql(@manufacturer.id)
+        @vehicle.manufacturer_id.should eq(@manufacturer.id)
       end
     end
 
@@ -135,7 +136,7 @@ describe Koinonia::StiFactory do
       end
 
       it "should populate the assoc_id" do
-        @vehicle.manufacturer_id.should eql(@manufacturer.id)
+        @vehicle.manufacturer_id.should eq(@manufacturer.id)
       end
     end
   end
