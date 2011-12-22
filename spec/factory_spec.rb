@@ -102,11 +102,11 @@ describe Koinonia::StiFactory do
       end
 
       it "should instantiate the correct class calling assoc.build" do
-        @vehicle.class.should be_a(Car)
+        @vehicle.class.should be_a_kind_of(Car)
       end
 
       it "should populate the assoc_id" do
-        @vehicle.manufacturer_id.should eq(@manufacturer.id)
+        @vehicle.manufacturer_id.should eql(@manufacturer.id)
       end
     end
 
@@ -120,7 +120,7 @@ describe Koinonia::StiFactory do
       end
 
       it "should populate the assoc_id" do
-        @vehicle.manufacturer_id.should eq(@manufacturer.id)
+        @vehicle.manufacturer_id.should eql(@manufacturer.id)
       end
     end
   end
