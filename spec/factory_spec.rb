@@ -80,7 +80,6 @@ describe "an STI class with a factory method", :shared=>true do
 end
 
 describe Koinonia::StiFactory do
-
   it "should provide an array of subclass names" do
     %w{Car Truck MonsterTruck}.each do |class_name|
       Vehicle.subclass_names.should include( class_name )
@@ -89,20 +88,6 @@ describe Koinonia::StiFactory do
 
   it "should include the base class name in the list of subclass names" do
     Vehicle.subclass_names.should include( "Vehicle" )
-  end
-
-  describe 'with the default inheritance column' do
-    it_should_behave_like "an STI class with a factory method"
-  end
-
-  describe 'with a non-standard inheritance column' do
-    ActiveRecord::Schema.define do
-      rename_column :vehicles, :type, :vehicle_type
-    end
-
-    Vehicle.class_eval "self.inheritance_column = 'vehicle_type'"
-
-    it_should_behave_like "an STI class with a factory method"
   end
 
   context 'instantiated through an association' do
