@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Andy Vanasse"]
   s.email       = ["andyvanasse@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Converts ActiveRecord::Base#new into a subclass-aware factory method for tables using STI.}
+  s.description = %q{StiFactory converts the #new method of an ActiveRecord class into a subclass-aware factory method.}
 
   s.rubyforge_project = "sti_factory"
 
@@ -19,8 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency "rspec"
-  #s.add_development_dependency "activerecord"
-  s.add_development_dependency "rails", " ~> 3.0"
+  s.add_development_dependency "rails", "~> 3.1"
   s.add_development_dependency "sqlite3-ruby"
-  #s.add_development_dependency "supermodel"
 end
