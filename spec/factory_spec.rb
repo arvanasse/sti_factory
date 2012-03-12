@@ -89,7 +89,7 @@ describe Koinonia::StiFactory do
   it "should include the base class name in the list of subclass names" do
     Vehicle.subclass_names.should include( "Vehicle" )
   end
-
+  
   context 'instantiated through an association' do
     before :all do
       Vehicle.class_eval "self.inheritance_column = 'type'"
@@ -102,7 +102,7 @@ describe Koinonia::StiFactory do
       end
 
       it "should instantiate the correct class calling assoc.build" do
-        @vehicle.should be_a_kind_of(Car)
+        @vehicle.class.should eq(Car)
       end
 
       it "should populate the assoc_id" do

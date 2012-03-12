@@ -4,10 +4,8 @@ gem 'sqlite3-ruby'
 
 require File.join(File.dirname(__FILE__), '..', 'init.rb')
 ActiveRecord::Base.send(:include, Koinonia::StiFactory)
-
-require 'spec'
   
-ActiveRecord::Base.logger = Logger.new('/tmp/dj.log')
+#ActiveRecord::Base.logger = Logger.new('/tmp/dj.log')
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => '/tmp/factories.sqlite')
 ActiveRecord::Migration.verbose = false
 

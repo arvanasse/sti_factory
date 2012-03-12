@@ -15,7 +15,7 @@ module Koinonia
     
     module StiClassMethods
       def subclass_names
-        subclasses.map(&:name).push(self.name)
+        descendants.map(&:name).push(self.name)
       end
 
       def new_with_factory(attributes = nil, options={})
