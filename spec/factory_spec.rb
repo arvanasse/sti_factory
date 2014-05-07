@@ -9,6 +9,9 @@ end
 class MonsterTruck < Vehicle
 end
 
+class DefaultCar < DefaultVehicle
+end
+
 describe "an STI class with a factory method", :shared=>true do
   context "when instantiating a new object" do
     it "should return the subclass named in the type attribute if it is a valid subclass" do
@@ -30,6 +33,13 @@ describe "an STI class with a factory method", :shared=>true do
         target_class = class_name.constantize
         target_class.new( inheritance_column => 'Book' ).should be_a_kind_of( target_class )
       end
+    end
+
+    it 'should return the default type class' do
+      instance = DefaultVehicle.new
+      instance.type = 'DefaultCar'
+      instance.should be_a_kind_of( DefaultCar )
+      instance.should be_a_kind_of( DefaultVehicle )
     end
   end
 
@@ -89,7 +99,12 @@ describe Koinonia::StiFactory do
   it "should include the base class name in the list of subclass names" do
     Vehicle.subclass_names.should include( "Vehicle" )
   end
-  
+
+  it "should return class name by column default" do
+    DefaultVehicle.send(:class_name_from_column_definition).should eq 'DefaultCar'
+    DefaultVehicle.send(:identify_target_class, nil).should eq 'DefaultCar'
+  end
+
   context 'instantiated through an association' do
     before :all do
       Vehicle.class_eval "self.inheritance_column = 'type'"
